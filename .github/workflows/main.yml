@@ -17,7 +17,7 @@ jobs:
           docker run -d --name terabox-bridge \
             -e SET_COOKIES="ndus=${{ secrets.TERABOX_NDUS }}" \
             -p 8080:8080 \
-            pmsosary/terabox-webdav:latest
+            aceberg/terabox-webdav:latest
           sleep 20 # Tempo fondamentale per il login automatico
 
       - name: 3. Montaggio Disco 1TB
@@ -28,7 +28,7 @@ jobs:
           url = http://127.0.0.1:8080
           vendor = other
           user = admin
-          pass = t9_G2z_v4h_L8_p_" > ~/.config/rclone/rclone.conf
+          pass = admin" > ~/.config/rclone/rclone.conf
           
           mkdir -p ~/TeraStorage
           # Montaggio con cache per non far crashare i giochi
