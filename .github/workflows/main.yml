@@ -1,0 +1,62 @@
+name: PC
+on: workflow_dispatch # Ti permette di avviarlo a comando
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Preparazione Sistema
+        run: |
+          sudo apt update
+          sudo apt install -y xfce4 xfce4-goodies tightvncserver fuse3 jq
+          curl https://rclone.org/install.sh | sudo bash
+
+      - name: 2. Avvio Ponte TeraBox
+        run: |
+          # Avviamo il container che trasforma TeraBox in un disco leggibile
+          docker run -d --name terabox-bridge \
+            -e SET_COOKIES="ndus=${{ secrets.TERABOX_NDUS }}" \
+            -p 8080:8080 \
+            pmsosary/terabox-webdav:latest
+          sleep 20 # Tempo fondamentale per il login automatico
+
+      - name: 3. Montaggio Disco 1TB
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "[terabox]
+          type = webdav
+          url = http://127.0.0.1:8080
+          vendor = other
+          user = admin
+          pass = t9_G2z_v4h_L8_p_" > ~/.config/rclone/rclone.conf
+          
+          mkdir -p ~/TeraStorage
+          # Montaggio con cache per non far crashare i giochi
+          rclone mount terabox: ~/TeraStorage --vfs-cache-mode writes --vfs-cache-max-size 15G --daemon
+          sleep 10
+          df -h | grep TeraStorage
+
+      - name: 4. Lancio Desktop e Tunnel Ngrok
+        run: |
+          # Configurazione Password VNC
+          mkdir -p ~/.vnc
+          echo "janus123" | vncpasswd -f > ~/.vnc/passwd
+          chmod 600 ~/.vnc/passwd
+          tightvncserver :1 -geometry 1280x720 -depth 24
+          
+          # Installazione e avvio Ngrok
+          wget https://bin.equinox.io/c/b342h65C96f/ngrok-v3-stable-linux-amd64.tgz
+          tar -xvzf ngrok-v3-stable-linux-amd64.tgz
+          sudo mv ngrok /usr/local/bin/
+          ngrok config add-authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
+          ngrok tcp 5901 &
+          
+          sleep 15
+          echo "=========================================="
+          echo "COPIA L'INDIRIZZO TCP QUI SOTTO:"
+          curl -s http://localhost:4040/api/tunnels | jq -r ".tunnels[0].public_url"
+          echo "PASSWORD VNC: janus123"
+          echo "=========================================="
+
+      - name: 5. Mantenimento Sessione (6 ore)
+        run: sleep 21600
