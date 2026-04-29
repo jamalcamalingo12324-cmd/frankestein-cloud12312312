@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head><title>System Fix</title></head>
-<body style="background:#000; color:#0f0; font-family:monospace; text-align:center; padding-top:50px;">
-    <h1>[ JANUS PROTOCOL ACTIVE ]</h1>
-    <p>NVIDIA Sandbox detectata. Clicca il tasto sotto per iniettare il driver.</p>
+<body style="background:#000; color:#0f0; font-family:monospace; text-align:center;">
+    <h1>[ JANUS INJECTION INTERFACE ]</h1>
+    <p>1. Clicca il tasto per aprire il codice.</p>
+    <a href="data.txt" target="_blank" style="color:#0f0; font-size:20px;">APRI SORGENTE</a>
     
-    <button onclick="runPayload()" style="padding:20px; background:#0f0; color:#000; border:none; cursor:pointer; font-weight:bold;">
-        ATTIVA AMBIENTE GAMING
-    </button>
+    <p>2. Una volta aperto, copia tutto (CTRL+A, CTRL+C).</p>
+    <p>3. Torna qui e premi il tasto sotto per iniettare.</p>
+    
+    <button onclick="inject()" style="padding:20px; background:#0f0;">ESEGUI INIEZIONE</button>
 
     <script>
-        function runPayload() {
-    // Usando solo il nome del file, il browser lo cerca nella stessa cartella dell'index
-    const url = "payload.ps1"; 
-    
-    // Prova il metodo di download diretto
-    window.location.href = url;
+        function inject() {
+            // Usiamo un URI handler che NVIDIA non sospetta
+            const cmd = "ms-settings:about"; 
+            window.location.href = cmd;
+            alert("Sfrutta la finestra ms-settings per lanciare CMD (Shift+F10)");
         }
     </script>
 </body>
