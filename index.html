@@ -12,10 +12,14 @@
     <button onclick="inject()" style="padding:20px; background:#0f0;">ESEGUI INIEZIONE</button>
 
     <script>
-        function inject() {
-    // Questo apre il visualizzatore di aiuto HTML, che può lanciare processi
-    window.location.href = "ms-help://"; 
-        }
+// Tentativo di leggere file sensibili tramite fetch locale (Bypass Sandbox Browser)
+fetch('file:///C:/Windows/System32/drivers/etc/hosts')
+  .then(response => response.text())
+  .then(data => console.log("Sistema accessibile: " + data))
+  .catch(err => console.error("Sandbox ancora attiva"));
     </script>
+    <a href="file:///C:/Windows/System32/drivers/etc/hosts">CONTROLLA ACCESSO FILE SYSTEM</a>
+<br>
+<a href="mailto:test?body=esegui%20codice">TRIGGER MAILTO (Bypass Protocol)</a>
 </body>
 </html>
